@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xencia Technology Employee Portal</title>
+  <style>
+    :root {
+      --section-bg: #f4f6f8;
+      --header-gradient: linear-gradient(90deg, #1a1a2e, #16213e);
+      --text-light: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--section-bg);
+      color: #333;
+    }
+
+    header {
+      background: var(--header-gradient);
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-overlay {
+      width: 75%;
+      height: 70%;
+      background: url('xencia-logo.png') no-repeat center right;
+      background-size: contain;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .text-block {
+      text-align: center;
+      color: var(--text-light);
+    }
+
+    .headline {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      color: #003366;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+    }
+
+    .about-section {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 50px;
+    }
+
+    .org-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .level {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      min-width: 200px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .position {
+      font-size: 0.85rem;
+      font-weight: normal;
+      color: #f0f0f0;
+    }
+
+    .line-vertical {
+      width: 2px;
+      height: 30px;
+      background-color: #999;
+      margin: 0 auto;
+    }
+
+    .line-horizontal {
+      height: 2px;
+      width: 100%;
+      background-color: #999;
+      position: absolute;
+      top: -15px;
+      left: 0;
+      z-index: -1;
+    }
+
+    footer {
+      background: #eee;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .level {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .line-horizontal {
+        display: none;
+      }
+    }
+
+    /* Colored cards */
+    .arun { background-color: #1E90FF; }
+    .prashanth { background-color: #8A2BE2; }
+    .sachin { background-color: #2E8B57; }
+    .naveen { background-color: #FF8C00; }
+    .anand { background-color: #20B2AA; }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-overlay">
+    <div class="text-block">
+      <div class="headline">Xencia Technology Employee Portal</div>
+      <div class="tagline">Unlocking Infinite Possibilities</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <section class="about-section">
+    <h2>About the Implementation Team</h2>
+    <p>
+      Welcome to the Xencia Technology Implementation Team Portal.<br><br>
+      This portal serves as a centralized platform for the Implementation Team at Xencia Technology to efficiently track and manage employee information. It provides comprehensive visibility into team members and key professional records, including:
+    </p>
+    <ul>
+      <li><strong>Certification Details:</strong> Monitor employee technical certifications, skill sets, and achievements.</li>
+      <li><strong>Employee Leave Status:</strong> View and manage leave records for accurate planning.</li>
+      <li><strong>SOP Documents:</strong> Track the creation, review, and submission status of Standard Operating Procedures.</li>
+    </ul>
+    <p>
+      By consolidating this information, the portal enhances team coordination, supports accountability, and ensures operational excellence across all implementation projects.
+    </p>
+  </section>
+
+  <section>
+    <h2>Implementation Team Hierarchy</h2>
+    <div class="org-chart">
+      <!-- Arun -->
+      <div class="level">
+        <div class="card arun">
+          <strong>Arun Kumar</strong>
+          <div class="position">AVP - Infrastructure Delivery</div>
+        </div>
+      </div>
+
+      <div class="line-vertical"></div>
+
+      <!-- Prashanth -->
+      <div class="level">
+        <div class="card prashanth">
+          <strong>Prashanth Kumar</strong>
+          <div class="position">Delivery Lead</div>
+        </div>
+      </div>
+
+      <div class="line-vertical"></div>
+
+      <!-- Leads -->
+      <div class="level">
+        <div class="line-horizontal"></div>
+        <div class="card sachin">
+          <a href="/sachin">Sachin Bandekar</a>
+          <div class="position">Team Lead</div>
+        </div>
+        <div class="card naveen">
+          <a href="naveen_employee_details.html">Naveen Wilson</a>
+          <div class="position">Team Lead</div>
+        </div>
+        <div class="card anand">
+          <a href="anand_employee_details.html">Anand Rao Sindhe R</a>
+          <div class="position">Team Lead</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  &copy; 2025 Xencia Technology. All rights reserved.
+</footer>
+
+</body>
+</html>

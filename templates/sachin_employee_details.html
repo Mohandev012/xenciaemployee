@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sachin Team - Employee Directory</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f5f7fa; }
+    nav { background-color: #003366; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+    nav h1 { margin: 0; font-size: 24px; }
+    .nav-links a { color: #fff; margin-left: 20px; text-decoration: none; font-weight: 500; }
+    .nav-links a:hover { text-decoration: underline; }
+    main { padding: 30px; }
+    h2 { text-align: center; font-size: 24px; color: #003366; margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background-color: #005799; color: white; }
+    .name-link { cursor: pointer; color: #005799; font-weight: bold; }
+    .name-link:hover { text-decoration: underline; }
+    #detailsSection { margin-top: 30px; }
+    .tabs { margin-top: 20px; }
+    .tab-buttons { display: flex; border-bottom: 2px solid #ccc; }
+    .tab-button { padding: 10px 20px; cursor: pointer; background: none; border: none; font-size: 16px; font-weight: 600; }
+    .tab-button.active { border-bottom: 3px solid #005799; color: #005799; }
+    .tab-content { display: none; margin-top: 10px; padding: 20px; border: 1px solid #ccc; background-color: #fff; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Xencia Technology Solutions Pvt. Ltd</h1>
+    <div class="nav-links">
+      <a href="index.html">🏠 Home</a>
+    </div>
+  </nav>
+  <main>
+    <h2>🧑‍💼 Sachin Team - Employee Directory</h2>
+    <div id="teamContainer"></div>
+    <div id="detailsSection"></div>
+  </main>
+<script>
+  async function loadTeamData() {
+  try {
+    const res = await fetch("/api/employees/sachin");
+    const teamMembers = await res.json();
+    displayTable(teamMembers);
+  } catch (e) {
+    console.error("Error loading team data:", e);
+  }
+}
+
+  function displayTable(members) {
+    const container = document.getElementById("teamContainer");
+    container.innerHTML = "";
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const headers = ["EmpID", "Name", "Designation", "Email", "Phone", "Team"];
+    const tr = document.createElement("tr");
+    headers.forEach(h => {
+      const th = document.createElement("th");
+      th.innerText = h;
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    members.forEach((m, i) => {
+      const row = document.createElement("tr");
+      headers.forEach(h => {
+        const td = document.createElement("td");
+        if (h === "Name") {
+          const link = document.createElement("span");
+          link.className = "name-link";
+          link.textContent = m[h] || `Member ${i + 1}`;
+          link.onclick = () => showDetails(m);
+          td.appendChild(link);
+        } else {
+          td.textContent = m[h] || "";
+        }
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    container.appendChild(table);
+  }
+
+  function showDetails(member) {
+    const section = document.getElementById("detailsSection");
+    section.innerHTML = "";
+
+    const table = document.createElement("table");
+    const row = document.createElement("tr");
+
+    row.appendChild(createCell(`EmpID: ${member.EmpID || ''}`));
+    row.appendChild(createCell(`Name: <span class='name-link' onclick='createTabs("${member.Name}")'>${member.Name || ''}</span>`));
+    row.appendChild(createCell(`Designation: ${member.Designation || ''}`));
+    row.appendChild(createCell(`Email: ${member.Email || ''}`));
+    row.appendChild(createCell(`Phone: ${member.Phone || ''}`));
+    row.appendChild(createCell(`Team: ${member.Team || ''}`));
+
+    table.appendChild(row);
+    section.appendChild(table);
+  }
+
+  function createCell(content) {
+    const td = document.createElement("td");
+    td.innerHTML = content;
+    return td;
+  }
+
+  function createTabs(employeeName) {
+    document.querySelectorAll(".tabs").forEach(e => e.remove());
+    const tabs = ["Certificates", "Leaves", "SOPs"];
+    const tabContainer = document.createElement("div");
+    tabContainer.className = "tabs";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "tab-buttons";
+
+    const contentMap = {};
+
+    tabs.forEach((tab, idx) => {
+      const btn = document.createElement("button");
+      btn.className = "tab-button" + (idx === 0 ? " active" : "");
+      btn.innerText = tab;
+      btn.onclick = () => switchTab(tab, contentMap);
+      btnContainer.appendChild(btn);
+
+      const content = document.createElement("div");
+      content.className = "tab-content" + (idx === 0 ? " active" : "");
+      content.innerHTML = `<h3>${tab}</h3><p>Loading ${tab} info...</p>`;
+      contentMap[tab] = content;
+    });
+
+    tabContainer.appendChild(btnContainer);
+    Object.values(contentMap).forEach(c => tabContainer.appendChild(c));
+    document.getElementById("detailsSection").appendChild(tabContainer);
+
+    loadCertificateData(contentMap["Certificates"], employeeName);
+    loadSOPData(contentMap["SOPs"], employeeName);
+  }
+
+  async function loadCertificateData(container, employeeName) {
+    const certUrl = "https://stgfilesyncdemo.blob.core.windows.net/webtestmn/Certificates.xlsx?sp=racwdyti&st=2025-06-12T19:42:59Z&se=2025-06-27T03:42:59Z&sv=2024-11-04&sr=b&sig=tSlW7dSTlzbR4j0xmRbR1QpHpEDngtd1oeX%2B%2Bjc%2BdTo%3D";
+    try {
+      const res = await fetch(certUrl);
+      const data = await res.arrayBuffer();
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const certs = XLSX.utils.sheet_to_json(sheet);
+      const userCerts = certs.filter(cert => cert['EMPLOYEES NAME']?.toLowerCase().includes(employeeName.toLowerCase()));
+
+      if (!userCerts.length) {
+        container.innerHTML = `<p>No certificate data for ${employeeName}.</p>`;
+        return;
+      }
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tr = document.createElement("tr");
+      ["E ID", "EMPLOYEES NAME", "CERTIFICATIONS", "SKILL SETS"].forEach(h => {
+        const th = document.createElement("th");
+        th.innerText = h;
+        tr.appendChild(th);
+      });
+      thead.appendChild(tr);
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      userCerts.forEach(cert => {
+        const row = document.createElement("tr");
+        ["E ID", "EMPLOYEES NAME", "CERTIFICATIONS", "SKILL SETS"].forEach(key => {
+          const td = document.createElement("td");
+          td.innerText = cert[key] || "";
+          row.appendChild(td);
+        });
+        tbody.appendChild(row);
+      });
+
+      table.appendChild(tbody);
+      container.innerHTML = `<h3>Certificates for ${employeeName}</h3>`;
+      container.appendChild(table);
+    } catch (e) {
+      console.error("Certificate load error:", e);
+      container.innerHTML = `<p>Error loading certificates.</p>`;
+    }
+  }
+
+  async function loadSOPData(container, employeeName) {
+    const sopUrl = "https://stgfilesyncdemo.blob.core.windows.net/webtestmn/SOPs_Documents_details.xlsx?sp=racwdyti&st=2025-06-13T13:45:56Z&se=2025-06-29T21:45:56Z&sv=2024-11-04&sr=b&sig=eurLdkpkPMYxG0qIGTqko9jL30YsaT%2F2lwl5LorZyJg%3D";
+    try {
+      const res = await fetch(sopUrl);
+      const data = await res.arrayBuffer();
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const sops = XLSX.utils.sheet_to_json(sheet);
+      
+      const userSOPs = sops.filter(sop => {
+        const engineers = sop['ENGINEERS'] || '';
+        const trainees = sop['TRAINEES'] || '';
+        return engineers.toLowerCase().includes(employeeName.toLowerCase()) || 
+               trainees.toLowerCase().includes(employeeName.toLowerCase());
+      });
+
+      if (!userSOPs.length) {
+        container.innerHTML = `<h3>SOPs for ${employeeName}</h3><p>No SOP documents found for this employee.</p>`;
+        return;
+      }
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tr = document.createElement("tr");
+      ["ENGINEERS", "TRAINEES", "SR.ENGINEER", "SOP DOCUMENTS", "STATUS", "KT SESSION TO TEAM"].forEach(h => {
+        const th = document.createElement("th");
+        th.innerText = h;
+        tr.appendChild(th);
+      });
+      thead.appendChild(tr);
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      userSOPs.forEach(sop => {
+        const row = document.createElement("tr");
+        ["ENGINEERS", "TRAINEES", "SR.ENGINEER", "SOP DOCUMENTS", "STATUS", "KT SESSION TO TEAM"].forEach(key => {
+          const td = document.createElement("td");
+          td.textContent = sop[key] || "";
+          row.appendChild(td);
+        });
+        tbody.appendChild(row);
+      });
+
+      table.appendChild(tbody);
+      container.innerHTML = `<h3>SOPs for ${employeeName}</h3>`;
+      container.appendChild(table);
+    } catch (e) {
+      console.error("SOP load error:", e);
+      container.innerHTML = `<h3>SOPs for ${employeeName}</h3><p>Error loading SOP data. Please try again later.</p>`;
+    }
+  }
+
+  function switchTab(tab, contentMap) {
+    Object.keys(contentMap).forEach(t => {
+      contentMap[t].classList.toggle("active", t === tab);
+    });
+    document.querySelectorAll(".tab-button").forEach(btn => {
+      btn.classList.toggle("active", btn.innerText === tab);
+    });
+  }
+
+  // Load employee data when the page starts
+  loadTeamData();
+</script>
+</body>
+</html>
