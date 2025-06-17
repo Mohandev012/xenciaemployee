@@ -257,3 +257,155 @@ INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 16:10:56] "[32mPOST /anand_login HTTP/
 INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 16:10:56] "GET /anand HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 16:10:56] "GET /api/employees/anand HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 16:10:56] "GET /api/employees/anand HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 114-462-986
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:24] "GET /anand HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:24] "GET /api/employees/anand HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:24] "GET /api/employees/anand HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:24] "GET /anand HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:24] "GET /api/employees/anand HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:24] "GET /api/employees/anand HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:26] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:26] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:28] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:37] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:37] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:37] "GET /api/employees/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:37] "GET /api/employees/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:41] "GET /api/certifications/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:22:52] "GET /api/certifications/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:23:03] "GET /api/certifications/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:23:07] "GET /api/certifications/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:23:17] "GET /api/certifications/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:23:32] "GET /api/certifications/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:23:49] "GET /api/certifications/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:32:57] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:01] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:01] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:02] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:02] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:03] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:09] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:09] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 114-462-986
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:37] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:37] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:37] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:37] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:39] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:50] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:33:50] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:06] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:07] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:10] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:10] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:13] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:13] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:14] "GET /naveen_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:22] "POST /naveen_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:36] "[32mPOST /naveen_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:36] "GET /naveen HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:36] "GET /api/employees/naveen HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:36] "GET /api/employees/naveen HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:46] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:46] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:48] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:55] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:35:55] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:36:59] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:36:59] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:36:59] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:36:59] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:37:01] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:37:01] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:37:59] "GET /api/employees/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:38:03] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:38:03] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 114-462-986
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:40:09] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:40:11] "[32mGET /sachin_logout HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:40:11] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:40:22] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:40:22] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:13] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:14] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:14] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:22] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:22] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:23] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:23] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:23] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:23] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:33] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:40] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:40] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:45] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:47] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:42:47] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:58:23] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:58:35] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:58:35] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:59:18] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:59:21] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:59:23] "[32mGET /sachin_logout HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:59:23] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:59:29] "[32mGET /sachin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 18:59:29] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:00:07] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:00:07] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:06] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:07] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:07] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:07] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:08] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:16] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:17] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:17] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 114-462-986
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:45] "GET /api/employees/sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:53] "[33mGET /api/employees HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:57] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:14:57] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:15:00] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:15:07] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:15:07] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:15:12] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:15:12] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:16:26] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:16:34] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:17:54] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:17:55] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:17:55] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:17:55] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:17:57] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:17:57] "[36mGET /static/images/xencia-logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:18:00] "GET /sachin_login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:18:09] "[32mPOST /sachin_login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:18:09] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:18:11] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:18:11] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:18:11] "GET /sachin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Jun/2025 19:18:12] "GET /sachin HTTP/1.1" 200 -

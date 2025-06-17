@@ -147,6 +147,25 @@ def get_team_employees(team_name):
     conn.close()
     return jsonify(results)
 
+@app.route('/api/certifications/sachin')
+def sachin_certifications():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT EmpID, Name, Certificate, Status, ExpireDate, MailID, MS_Link_To_Renew_Cert
+        FROM certification_details
+        WHERE LOWER(Name) IN (
+            SELECT LOWER(Name) FROM Employee_Details WHERE LOWER(Team) = 'sachin team'
+        )
+    """)
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
 
 # ?? Homepage
 @app.route('/')

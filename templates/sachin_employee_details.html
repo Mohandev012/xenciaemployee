@@ -64,14 +64,14 @@
     try {
       const res = await fetch("/api/employees/sachin");
       const teamMembers = await res.json();
-      displayTable(teamMembers);
+      displayMembersTable(teamMembers);
     } catch (e) {
       console.error("Error loading team data:", e);
     }
   }
 
-  function displayTable(members) {
-    const container = document.getElementById("teamContainer");
+     function displayMembersTable(members) {
+      const container = document.getElementById("teamContainer");
     container.innerHTML = "";
     const table = document.createElement("table");
     const thead = document.createElement("thead");
@@ -163,51 +163,64 @@
     loadSOPData(contentMap["SOPs"], employeeName);
   }
 
-  async function loadCertificateData(container, employeeName) {
-    const certUrl = "https://stgfilesyncdemo.blob.core.windows.net/webtestmn/Certificates.xlsx?sp=racwdyti&st=2025-06-12T19:42:59Z&se=2025-06-27T03:42:59Z&sv=2024-11-04&sr=b&sig=tSlW7dSTlzbR4j0xmRbR1QpHpEDngtd1oeX%2B%2Bjc%2BdTo%3D";
-    try {
-      const res = await fetch(certUrl);
-      const data = await res.arrayBuffer();
-      const workbook = XLSX.read(data, { type: "array" });
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const certs = XLSX.utils.sheet_to_json(sheet);
-      const userCerts = certs.filter(cert => cert['EMPLOYEES NAME']?.toLowerCase().includes(employeeName.toLowerCase()));
+async function loadCertificateData(container, employeeName) {
+  try {
+    const res = await fetch("/api/certifications/sachin");
+    const allCerts = await res.json();
 
-      if (!userCerts.length) {
-        container.innerHTML = `<p>No certificate data for ${employeeName}.</p>`;
-        return;
-      }
+    const userCerts = allCerts.filter(cert =>
+      cert['Name']?.toLowerCase().includes(employeeName.toLowerCase())
+    );
 
-      const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      const tr = document.createElement("tr");
-      ["E ID", "EMPLOYEES NAME", "CERTIFICATIONS", "SKILL SETS"].forEach(h => {
-        const th = document.createElement("th");
-        th.innerText = h;
-        tr.appendChild(th);
-      });
-      thead.appendChild(tr);
-      table.appendChild(thead);
-
-      const tbody = document.createElement("tbody");
-      userCerts.forEach(cert => {
-        const row = document.createElement("tr");
-        ["E ID", "EMPLOYEES NAME", "CERTIFICATIONS", "SKILL SETS"].forEach(key => {
-          const td = document.createElement("td");
-          td.innerText = cert[key] || "";
-          row.appendChild(td);
-        });
-        tbody.appendChild(row);
-      });
-
-      table.appendChild(tbody);
-      container.innerHTML = `<h3>Certificates for ${employeeName}</h3>`;
-      container.appendChild(table);
-    } catch (e) {
-      console.error("Certificate load error:", e);
-      container.innerHTML = `<p>Error loading certificates.</p>`;
+    if (!userCerts.length) {
+      container.innerHTML = `<p>No certification data for ${employeeName}.</p>`;
+      return;
     }
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+    ["EmpID", "Name", "Certificate", "Status", "ExpireDate", "MailID", "MS_Link_To_Renew_Cert"].forEach(h => {
+      const th = document.createElement("th");
+      th.innerText = h;
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    userCerts.forEach(cert => {
+      const row = document.createElement("tr");
+["EmpID", "Name", "Certificate", "Status", "ExpireDate", "MailID", "MS_Link_To_Renew_Cert"].forEach(key => {
+  const td = document.createElement("td");
+
+  if (key === "ExpireDate" && cert[key]) {
+    const date = new Date(cert[key]);
+    td.innerText = date.toLocaleDateString(); // e.g., 03/02/2026
+  } else if (key === "MS_Link_To_Renew_Cert" && cert[key]) {
+    const a = document.createElement("a");
+    a.href = cert[key];
+    a.innerText = "Renew Link";
+    a.target = "_blank";
+    a.style.color = "#007bff";
+    a.style.textDecoration = "none";
+    td.appendChild(a);
+  } else {
+    td.innerText = cert[key] || "";
   }
+
+  row.appendChild(td);
+});
+
+    table.appendChild(tbody);
+    container.innerHTML = `<h3>Certificates for ${employeeName}</h3>`;
+    container.appendChild(table);
+  } catch (e) {
+    console.error("Error loading certification data:", e);
+    container.innerHTML = `<p>Error loading certificate data for ${employeeName}.</p>`;
+  }
+}
+
 
   async function loadSOPData(container, employeeName) {
     const sopUrl = "https://stgfilesyncdemo.blob.core.windows.net/webtestmn/SOPs_Documents_details.xlsx?sp=racwdyti&st=2025-06-13T13:45:56Z&se=2025-06-29T21:45:56Z&sv=2024-11-04&sr=b&sig=eurLdkpkPMYxG0qIGTqko9jL30YsaT%2F2lwl5LorZyJg%3D";
@@ -271,6 +284,7 @@
   }
 
   // Initialize the page
+<script>
   document.addEventListener('DOMContentLoaded', () => {
     loadTeamData();
   });
