@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Employee Portal</title>
+  <title>Naveen Wilson Team - Employee Directory</title>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <style>
     body {
@@ -111,18 +111,14 @@
     .tab-content.active {
       display: block;
     }
-
-    .highlight {
-      background-color: #e9f3ff;
-    }
   </style>
 </head>
 <body>
   <nav>
     <h1>Xencia Technology Solutions Pvt. Ltd</h1>
     <div class="nav-links">
-	<h1><a href="index.html" style="color:white; text-decoration:none;">🏠 Home</a></h1>
-	<div class="nav-links">
+      <a href="/naveen_logout">🔒 Logout</a>
+      <a href="/">🏠 Home</a>
     </div>
   </nav>
 
@@ -133,15 +129,31 @@
   </main>
 
   <script>
+    async function checkAuth() {
+      try {
+        const res = await fetch("/api/employees/naveen");
+        if (res.status === 401) {
+          window.location.href = "/naveen_login";
+          return false;
+        }
+        return true;
+      } catch (e) {
+        console.error("Auth check failed:", e);
+        window.location.href = "/naveen_login";
+        return false;
+      }
+    }
+
     async function loadTeamData() {
-  try {
-    const res = await fetch("/api/employees/naveen");
-    const teamMembers = await res.json();
-    displayTable(teamMembers);
-  } catch (e) {
-    console.error("Error loading team data:", e);
-  }
-}
+      if (!await checkAuth()) return;
+      try {
+        const res = await fetch("/api/employees/naveen");
+        const teamMembers = await res.json();
+        displayMembersTable(teamMembers);
+      } catch (e) {
+        console.error("Error loading team data:", e);
+      }
+    }
 
     function displayMembersTable(members) {
       const container = document.getElementById("naveenFullDataContainer");
@@ -267,12 +279,6 @@
         }
 
         const requiredColumns = ['E ID', 'EMPLOYEES NAME', 'CERTIFICATIONS', 'SKILL SETS'];
-        const missing = requiredColumns.filter(c => !(c in userCerts[0]));
-        if (missing.length > 0) {
-          container.innerHTML = `<p>Missing columns: ${missing.join(", ")}</p>`;
-          return;
-        }
-
         const table = document.createElement("table");
         const thead = document.createElement("thead");
         const headerRow = document.createElement("tr");
@@ -313,7 +319,9 @@
       });
     }
 
-    loadNaveenFullData();
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTeamData();
+    });
   </script>
 </body>
 </html>

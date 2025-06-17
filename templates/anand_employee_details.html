@@ -103,8 +103,8 @@
   <nav>
     <h1>Xencia Technology Solutions Pvt. Ltd</h1>
     <div class="nav-links">
-	<h1><a href="index.html" style="color:white; text-decoration:none;">🏠 Home</a></h1>
-	<div class="nav-links">
+      <a href="/anand_logout">🔒 Logout</a>
+      <a href="/">🏠 Home</a>
     </div>
   </nav>
   <main>
@@ -113,15 +113,32 @@
     <div id="detailsSection"></div>
   </main>
   <script>
+    async function checkAuth() {
+      try {
+        const res = await fetch("/api/employees/anand");
+        if (res.status === 401) {
+          window.location.href = "/anand_login";
+          return false;
+        }
+        return true;
+      } catch (e) {
+        console.error("Auth check failed:", e);
+        window.location.href = "/anand_login";
+        return false;
+      }
+    }
+
     async function loadTeamData() {
-  try {
-    const res = await fetch("/api/employees/anand");
-    const teamMembers = await res.json();
-    displayTable(teamMembers);
-  } catch (e) {
-    console.error("Error loading team data:", e);
-  }
-}
+      if (!await checkAuth()) return;
+      try {
+        const res = await fetch("/api/employees/anand");
+        const teamMembers = await res.json();
+        displayTable(teamMembers);
+      } catch (e) {
+        console.error("Error loading team data:", e);
+      }
+    }
+
     function displayTable(members) {
       const container = document.getElementById("teamContainer");
       container.innerHTML = "";
@@ -269,7 +286,9 @@
       });
     }
 
-    loadTeamData();
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTeamData();
+    });
   </script>
 </body>
 </html>

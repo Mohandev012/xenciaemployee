@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>anand Team - Secure Login</title>
+  <style>
+    :root {
+      --primary-color: #2E8B57;
+      --secondary-color: #003366;
+      --error-color: #d9534f;
+      --text-color: #333;
+      --light-gray: #f5f7fa;
+      --border-color: #ddd;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-gray);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    
+    .login-container {
+      background-color: white;
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    .login-header {
+      margin-bottom: 2rem;
+    }
+    
+    .login-header h1 {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+    }
+    
+    .login-header p {
+      color: var(--text-color);
+      margin: 0;
+    }
+    
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .form-group {
+      text-align: left;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(46, 139, 87, 0.2);
+    }
+    
+    .login-button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .login-button:hover {
+      background-color: #3CB371;
+    }
+    
+    .error-message {
+      color: var(--error-color);
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .footer-note {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>Anand Rao Team Portal</h1>
+      <p>Xencia Technology Solutions</p>
+    </div>
+    
+    <form class="login-form" method="POST" action="{{ url_for('anand_login') }}">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required autocomplete="username">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required autocomplete="current-password">
+      </div>
+      
+      <button type="submit" class="login-button">Sign In</button>
+<div style="margin-top: 1.2rem;">
+  <a href="/" style="
+    color: #2E8B57;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid #2E8B57;
+    padding: 6px 12px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: all 0.2s ease;
+  "
+  onmouseover="this.style.backgroundColor='#2E8B57'; this.style.color='white'"
+  onmouseout="this.style.backgroundColor='transparent'; this.style.color='#2E8B57'">
+    Back to Home
+  </a>
+</div>
+      {% if error %}
+      <div class="error-message">{{ error }}</div>
+      {% endif %}
+    </form>
+    
+    <div class="footer-note">
+      For authorized personnel only. Unauthorized access prohibited.
+    </div>
+  </div>
+
+  <!-- Basic client-side validation -->
+  <script>
+    document.querySelector('.login-form').addEventListener('submit', function(e) {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      
+      if (!username || !password) {
+        e.preventDefault();
+        alert('Please enter both username and password');
+      }
+    });
+  </script>
+</body>
+</html>

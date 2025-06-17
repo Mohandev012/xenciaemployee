@@ -31,7 +31,9 @@
   <nav>
     <h1>Xencia Technology Solutions Pvt. Ltd</h1>
     <div class="nav-links">
-      <a href="index.html">🏠 Home</a>
+      <!-- Added logout link -->
+      <a href="/sachin_logout">🔒 Logout</a>
+      <a href="/">🏠 Home</a>
     </div>
   </nav>
   <main>
@@ -40,15 +42,33 @@
     <div id="detailsSection"></div>
   </main>
 <script>
-  async function loadTeamData() {
-  try {
-    const res = await fetch("/api/employees/sachin");
-    const teamMembers = await res.json();
-    displayTable(teamMembers);
-  } catch (e) {
-    console.error("Error loading team data:", e);
+  // Authentication check
+  async function checkAuth() {
+    try {
+      const res = await fetch("/api/employees/sachin");
+      if (res.status === 401) {
+        window.location.href = "/sachin_login";
+        return false;
+      }
+      return true;
+    } catch (e) {
+      console.error("Auth check failed:", e);
+      window.location.href = "/sachin_login";
+      return false;
+    }
   }
-}
+
+  async function loadTeamData() {
+    if (!await checkAuth()) return;
+    
+    try {
+      const res = await fetch("/api/employees/sachin");
+      const teamMembers = await res.json();
+      displayTable(teamMembers);
+    } catch (e) {
+      console.error("Error loading team data:", e);
+    }
+  }
 
   function displayTable(members) {
     const container = document.getElementById("teamContainer");
@@ -250,8 +270,10 @@
     });
   }
 
-  // Load employee data when the page starts
-  loadTeamData();
+  // Initialize the page
+  document.addEventListener('DOMContentLoaded', () => {
+    loadTeamData();
+  });
 </script>
 </body>
 </html>
