@@ -156,7 +156,9 @@
       Object.values(contentMap).forEach(c => tabContainer.appendChild(c));
       document.getElementById("detailsSection").appendChild(tabContainer);
 
-      loadCertificateData(contentMap["Certificates"], employeeName);
+	loadCertificateData(contentMap["Certificates"], employeeName);
+	loadLeaveData(contentMap["Leaves"], employeeName);
+	loadSOPData(contentMap["SOPs"], employeeName);
     }
 
     async function loadCertificateData(container, employeeName) {
@@ -212,6 +214,93 @@
       }
     }
 
+async function loadSOPData(container, employeeName) {
+  try {
+    const res = await fetch("/api/sops/anand");
+    const sops = await res.json();
+
+    const matchedSOPs = sops.filter(item =>
+      (item.Engineer?.toLowerCase() === employeeName.toLowerCase()) ||
+      (item.Trainee?.toLowerCase() === employeeName.toLowerCase())
+    );
+
+    if (!matchedSOPs.length) {
+      container.innerHTML = `<h3>SOPs for ${employeeName}</h3><p>No SOP documents found for this employee.</p>`;
+      return;
+    }
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+    ["Engineer", "Trainee", "Sr_Engineer", "SOP_Document", "Status", "KT_Session_To_Team"].forEach(h => {
+      const th = document.createElement("th");
+      th.innerText = h.replace(/_/g, " ");
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    matchedSOPs.forEach(rowData => {
+      const row = document.createElement("tr");
+      ["Engineer", "Trainee", "Sr_Engineer", "SOP_Document", "Status", "KT_Session_To_Team", "SOP_Time"].forEach(key => {
+        const td = document.createElement("td");
+        td.innerText = rowData[key] || "";
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    container.innerHTML = `<h3>SOPs for ${employeeName}</h3>`;
+    container.appendChild(table);
+  } catch (e) {
+    console.error("SOP load error:", e);
+    container.innerHTML = `<p>Error loading SOPs.</p>`;
+  }
+}
+async function loadLeaveData(container, employeeName) {
+  try {
+    const res = await fetch("/api/leaves/anand");
+    const leaves = await res.json();
+
+    const filtered = leaves.filter(l => l.Name?.toLowerCase() === employeeName.toLowerCase());
+
+    if (!filtered.length) {
+      container.innerHTML = `<h3>Leaves for ${employeeName}</h3><p>No leave data available.</p>`;
+      return;
+    }
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+    ["Leave_Type", "Leaves_Taken", "Leave_Pending", "Remarks"].forEach(h => {
+      const th = document.createElement("th");
+      th.innerText = h.replace(/_/g, " ");
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    filtered.forEach(row => {
+      const tr = document.createElement("tr");
+      ["Leave_Type", "Leaves_Taken", "Leave_Pending", "Remarks"].forEach(k => {
+        const td = document.createElement("td");
+        td.textContent = row[k] || "";
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    container.innerHTML = `<h3>Leaves for ${employeeName}</h3>`;
+    container.appendChild(table);
+  } catch (e) {
+    console.error("Leave load error:", e);
+    container.innerHTML = `<p>Error loading leave data.</p>`;
+  }
+}
     function switchTab(tab, contentMap) {
       Object.keys(contentMap).forEach(t => {
         contentMap[t].classList.toggle("active", t === tab);
