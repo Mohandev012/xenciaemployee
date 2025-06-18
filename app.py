@@ -146,6 +146,7 @@ def get_team_employees(team_name):
     cursor.close()
     conn.close()
     return jsonify(results)
+    
 @app.route('/api/certifications/sachin')
 def sachin_certifications():
     if not session.get('logged_in'):
@@ -165,6 +166,7 @@ def sachin_certifications():
     cursor.close()
     conn.close()
     return jsonify(results)
+    
 @app.route('/api/certifications/naveen')
 def naveen_certifications():
     if not session.get('logged_in'):
@@ -242,6 +244,7 @@ def naveen_sops():
     cursor.close()
     conn.close()
     return jsonify(results)
+    
 @app.route('/api/sops/anand')
 def anand_sops():
     if not session.get('logged_in'):
