@@ -146,6 +146,64 @@ def get_team_employees(team_name):
     cursor.close()
     conn.close()
     return jsonify(results)
+@app.route('/api/certifications/sachin')
+def sachin_certifications():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT c.EmpID, c.Name, c.Certificate, c.Status, c.ExpireDate, c.MailID, c.MS_Link_To_Renew_Cert
+        FROM certification_details c
+        INNER JOIN Employee_Details e ON c.EmpID = e.Emp_ID
+        WHERE LOWER(e.Team) LIKE ?
+    """, ('%sachin%',))  # Match team name flexibly
+
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
+@app.route('/api/certifications/naveen')
+def naveen_certifications():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT c.EmpID, c.Name, c.Certificate, c.Status, c.ExpireDate, c.MailID, c.MS_Link_To_Renew_Cert
+        FROM certification_details c
+        INNER JOIN Employee_Details e ON c.EmpID = e.Emp_ID
+        WHERE LOWER(e.Team) LIKE ?
+    """, ('%naveen%',))  # Match team name flexibly
+
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
+
+@app.route('/api/certifications/anand')
+def anand_certifications():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT c.EmpID, c.Name, c.Certificate, c.Status, c.ExpireDate, c.MailID, c.MS_Link_To_Renew_Cert
+        FROM certification_details c
+        INNER JOIN Employee_Details e ON c.EmpID = e.Emp_ID
+        WHERE LOWER(e.Team) LIKE ?
+    """, ('%anand%',))  # Match team name flexibly
+
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
 
 
 # ?? Homepage
