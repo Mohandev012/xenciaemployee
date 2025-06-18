@@ -3,25 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Naveen Wilson Team - Employee Directory</title>
+  <title>Naveen Team - Employee Directory</title>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f9f9f9; }
-    nav { background-color: #003366; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-    nav h1 { margin: 0; font-size: 24px; }
-    .nav-links a { color: #fff; margin-left: 20px; text-decoration: none; font-weight: 500; }
-    main { padding: 30px; }
-    h2 { text-align: center; font-size: 24px; color: #003366; margin-bottom: 10px; }
-    table { width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 20px; }
-    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-    th { background-color: #005799; color: white; }
-    .name-link { cursor: pointer; color: #005799; font-weight: bold; }
-    .name-link:hover { text-decoration: underline; }
-    .tab-buttons { display: flex; gap: 10px; margin: 10px 0; }
-    .tab-button { padding: 10px 20px; background: #eee; border: none; cursor: pointer; }
-    .tab-button.active { background: #005799; color: #fff; }
-    .tab-content { display: none; margin-top: 10px; }
-    .tab-content.active { display: block; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f5f7fa;
+    }
+    nav {
+      background-color: #003366;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .nav-links a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #005799;
+      color: white;
+    }
+    .name-link {
+      cursor: pointer;
+      color: #005799;
+      font-weight: bold;
+    }
+    .name-link:hover {
+      text-decoration: underline;
+    }
+    #detailsSection {
+      margin-top: 30px;
+    }
+    .tabs {
+      margin-top: 20px;
+    }
+    .tab-buttons {
+      display: flex;
+      border-bottom: 2px solid #ccc;
+    }
+    .tab-button {
+      padding: 10px 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .tab-button.active {
+      border-bottom: 3px solid #005799;
+      color: #005799;
+    }
+    .tab-content {
+      display: none;
+      margin-top: 10px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+    }
+    .tab-content.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -33,56 +108,65 @@
     </div>
   </nav>
   <main>
-    <h2>🧑‍💼 Naveen Wilson Team - Employee Directory</h2>
-    <div id="naveenFullDataContainer"></div>
+    <h2>🧑‍💼 Naveen Team - Employee Directory</h2>
+    <div id="teamContainer"></div>
     <div id="detailsSection"></div>
   </main>
-
   <script>
     async function checkAuth() {
-      const res = await fetch("/api/employees/naveen");
-      if (res.status === 401) {
+      try {
+        const res = await fetch("/api/employees/naveen");
+        if (res.status === 401) {
+          window.location.href = "/naveen_login";
+          return false;
+        }
+        return true;
+      } catch (e) {
+        console.error("Auth check failed:", e);
         window.location.href = "/naveen_login";
         return false;
       }
-      return true;
     }
 
     async function loadTeamData() {
       if (!await checkAuth()) return;
-      const res = await fetch("/api/employees/naveen");
-      const team = await res.json();
-      displayMembersTable(team);
+      try {
+        const res = await fetch("/api/employees/naveen");
+        const teamMembers = await res.json();
+        displayTable(teamMembers);
+      } catch (e) {
+        console.error("Error loading team data:", e);
+      }
     }
 
-    function displayMembersTable(members) {
-      const container = document.getElementById("naveenFullDataContainer");
+    function displayTable(members) {
+      const container = document.getElementById("teamContainer");
       container.innerHTML = "";
       const table = document.createElement("table");
-      const headers = ["EmpID", "Name", "Designation", "Email", "Phone", "Team"];
       const thead = document.createElement("thead");
+      const headers = ["EmpID", "Name", "Designation", "Email", "Phone", "Team"];
       const tr = document.createElement("tr");
       headers.forEach(h => {
         const th = document.createElement("th");
-        th.textContent = h;
+        th.innerText = h;
         tr.appendChild(th);
       });
       thead.appendChild(tr);
       table.appendChild(thead);
 
       const tbody = document.createElement("tbody");
-      members.forEach(member => {
+      members.forEach((m, i) => {
         const row = document.createElement("tr");
         headers.forEach(h => {
           const td = document.createElement("td");
           if (h === "Name") {
-            const span = document.createElement("span");
-            span.className = "name-link";
-            span.textContent = member[h];
-            span.onclick = () => showDetails(member);
-            td.appendChild(span);
+            const link = document.createElement("span");
+            link.className = "name-link";
+            link.textContent = m[h] || `Member ${i + 1}`;
+            link.onclick = () => showDetails(m);
+            td.appendChild(link);
           } else {
-            td.textContent = member[h] || "";
+            td.textContent = m[h] || "";
           }
           row.appendChild(td);
         });
@@ -97,117 +181,215 @@
       section.innerHTML = "";
 
       const table = document.createElement("table");
-      const tr = document.createElement("tr");
-      ["EmpID", "Name", "Designation", "Email", "Phone", "Team"].forEach(key => {
-        const td = document.createElement("td");
-        if (key === "Name") {
-          td.innerHTML = `<strong>${key}:</strong> <span class="name-link">${member[key]}</span>`;
-          td.querySelector("span").onclick = () => createTabs(member);
-        } else {
-          td.innerHTML = `<strong>${key}:</strong> ${member[key] || ""}`;
-        }
-        tr.appendChild(td);
-      });
-      table.appendChild(tr);
+      const row = document.createElement("tr");
+
+      row.appendChild(createCell(`EmpID: ${member.EmpID || ''}`));
+      row.appendChild(createCell(`Name: <span class='name-link' onclick='createTabs("${member.Name}")'>${member.Name || ''}</span>`));
+      row.appendChild(createCell(`Designation: ${member.Designation || ''}`));
+      row.appendChild(createCell(`Email: ${member.Email || ''}`));
+      row.appendChild(createCell(`Phone: ${member.Phone || ''}`));
+      row.appendChild(createCell(`Team: ${member.Team || ''}`));
+
+      table.appendChild(row);
       section.appendChild(table);
     }
 
-    function createTabs(member) {
-      const employeeName = member.Name;
-      const empId = member.EmpID;
-
-      document.querySelectorAll(".tabs").forEach(tab => tab.remove());
-
-      const container = document.getElementById("detailsSection");
-      const tabBox = document.createElement("div");
-      tabBox.className = "tabs";
-
-      const btnGroup = document.createElement("div");
-      btnGroup.className = "tab-buttons";
-
-      const tabs = { Certificates: document.createElement("div"), Leaves: document.createElement("div"), SOPs: document.createElement("div") };
-
-      Object.keys(tabs).forEach((tabName, i) => {
-        const btn = document.createElement("button");
-        btn.className = "tab-button" + (i === 0 ? " active" : "");
-        btn.innerText = tabName;
-        btn.onclick = () => switchTab(tabName, tabs);
-        btnGroup.appendChild(btn);
-
-        tabs[tabName].className = "tab-content" + (i === 0 ? " active" : "");
-        tabs[tabName].innerHTML = `<p>Loading ${tabName}...</p>`;
-      });
-
-      tabBox.appendChild(btnGroup);
-      Object.values(tabs).forEach(div => tabBox.appendChild(div));
-      container.appendChild(tabBox);
-
-      loadCertificateDataForUser(tabs.Certificates, employeeName, empId);
+    function createCell(content) {
+      const td = document.createElement("td");
+      td.innerHTML = content;
+      return td;
     }
 
-    async function loadCertificateDataForUser(container, employeeName, empId) {
-      try {
-        const res = await fetch("/api/certifications/naveen");
-        const data = await res.json();
-        const certs = data.filter(c => c.EmpID?.toLowerCase() === empId.toLowerCase());
+    function createTabs(employeeName) {
+      document.querySelectorAll(".tabs").forEach(e => e.remove());
+      const tabs = ["Certificates", "Leaves", "SOPs"];
+      const tabContainer = document.createElement("div");
+      tabContainer.className = "tabs";
 
-        if (!certs.length) {
-          container.innerHTML = `<p>No certificate data found for <strong>${employeeName}</strong>.</p>`;
+      const btnContainer = document.createElement("div");
+      btnContainer.className = "tab-buttons";
+
+      const contentMap = {};
+
+      tabs.forEach((tab, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "tab-button" + (idx === 0 ? " active" : "");
+        btn.innerText = tab;
+        btn.onclick = () => switchTab(tab, contentMap);
+        btnContainer.appendChild(btn);
+
+        const content = document.createElement("div");
+        content.className = "tab-content" + (idx === 0 ? " active" : "");
+        content.innerHTML = `<h3>${tab}</h3><p>Loading ${tab} info...</p>`;
+        contentMap[tab] = content;
+      });
+
+      tabContainer.appendChild(btnContainer);
+      Object.values(contentMap).forEach(c => tabContainer.appendChild(c));
+      document.getElementById("detailsSection").appendChild(tabContainer);
+
+	loadCertificateData(contentMap["Certificates"], employeeName);
+	loadLeaveData(contentMap["Leaves"], employeeName);
+	loadSOPData(contentMap["SOPs"], employeeName);
+    }
+
+async function loadCertificateData(container, employeeName) {
+  try {
+    const res = await fetch("/api/certifications/naveen");
+    const data = await res.json();
+
+    const userCerts = data.filter(cert =>
+      cert.Name?.toLowerCase() === employeeName.toLowerCase()
+    );
+
+    if (!userCerts.length) {
+      container.innerHTML = `<h3>Certificates for ${employeeName}</h3><p>No certificate data found.</p>`;
+      return;
+    }
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+    ["EmpID", "Name", "Certificate", "Status", "ExpireDate", "MailID", "MS_Link_To_Renew_Cert"].forEach(h => {
+      const th = document.createElement("th");
+      th.innerText = h;
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    userCerts.forEach(cert => {
+      const row = document.createElement("tr");
+      ["EmpID", "Name", "Certificate", "Status", "ExpireDate", "MailID", "MS_Link_To_Renew_Cert"].forEach(key => {
+        const td = document.createElement("td");
+        if (key === "ExpireDate" && cert[key]) {
+          const date = new Date(cert[key]);
+          td.innerText = date.toLocaleDateString();
+        } else if (key === "MS_Link_To_Renew_Cert" && cert[key]) {
+          const a = document.createElement("a");
+          a.href = cert[key];
+          a.target = "_blank";
+          a.innerText = "Renew Link";
+          td.appendChild(a);
+        } else {
+          td.innerText = cert[key] || "";
+        }
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    container.innerHTML = `<h3>Certificates for ${employeeName}</h3>`;
+    container.appendChild(table);
+  } catch (e) {
+    console.error("Certificate load error:", e);
+    container.innerHTML = `<p>Error loading certificates.</p>`;
+  }
+}
+
+    async function loadSOPData(container, employeeName) {
+      try {
+        const res = await fetch("/api/sops/naveen");
+        const sops = await res.json();
+
+        const matchedSOPs = sops.filter(item =>
+          (item.Engineer?.toLowerCase() === employeeName.toLowerCase()) ||
+          (item.Trainee?.toLowerCase() === employeeName.toLowerCase())
+        );
+
+        if (!matchedSOPs.length) {
+          container.innerHTML = `<h3>SOPs for ${employeeName}</h3><p>No SOP documents found for this employee.</p>`;
           return;
         }
 
         const table = document.createElement("table");
         const thead = document.createElement("thead");
         const tr = document.createElement("tr");
-        ["EmpID", "Name", "Certificate", "Status", "ExpireDate", "MailID", "MS_Link_To_Renew_Cert"].forEach(h => {
+        ["Engineer", "Trainee", "Sr_Engineer", "SOP_Document", "Status", "KT_Session_To_Team"].forEach(h => {
           const th = document.createElement("th");
-          th.innerText = h;
+          th.innerText = h.replace(/_/g, " ");
           tr.appendChild(th);
         });
         thead.appendChild(tr);
         table.appendChild(thead);
 
         const tbody = document.createElement("tbody");
-        certs.forEach(cert => {
+        matchedSOPs.forEach(rowData => {
           const row = document.createElement("tr");
-          ["EmpID", "Name", "Certificate", "Status", "ExpireDate", "MailID", "MS_Link_To_Renew_Cert"].forEach(key => {
+          ["Engineer", "Trainee", "Sr_Engineer", "SOP_Document", "Status", "KT_Session_To_Team"].forEach(key => {
             const td = document.createElement("td");
-            if (key === "MS_Link_To_Renew_Cert" && cert[key]) {
-              const a = document.createElement("a");
-              a.href = cert[key];
-              a.innerText = "Renew";
-              a.target = "_blank";
-              td.appendChild(a);
-            } else if (key === "ExpireDate" && cert[key]) {
-              const date = new Date(cert[key]);
-              td.innerText = date.toLocaleDateString();
-            } else {
-              td.innerText = cert[key] || "";
-            }
+            td.innerText = rowData[key] || "";
             row.appendChild(td);
           });
           tbody.appendChild(row);
         });
 
         table.appendChild(tbody);
-        container.innerHTML = `<h3>Certificates for ${employeeName}</h3>`;
+        container.innerHTML = `<h3>SOPs for ${employeeName}</h3>`;
         container.appendChild(table);
-      } catch (err) {
-        console.error("Failed to load certificates", err);
-        container.innerHTML = "<p>Error loading certificate data.</p>";
+      } catch (e) {
+        console.error("SOP load error:", e);
+        container.innerHTML = `<p>Error loading SOPs.</p>`;
       }
     }
 
-    function switchTab(tab, tabs) {
-      Object.entries(tabs).forEach(([name, div]) => {
-        div.classList.toggle("active", name === tab);
+async function loadLeaveData(container, employeeName) {
+  try {
+    const res = await fetch("/api/leaves/naveen");
+    const leaves = await res.json();
+
+    const filtered = leaves.filter(l => l.Name?.toLowerCase() === employeeName.toLowerCase());
+
+    if (!filtered.length) {
+      container.innerHTML = `<h3>Leaves for ${employeeName}</h3><p>No leave data available.</p>`;
+      return;
+    }
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+    ["Leave_Type", "Leaves_Taken", "Leave_Pending", "Remarks"].forEach(h => {
+      const th = document.createElement("th");
+      th.innerText = h.replace(/_/g, " ");
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    filtered.forEach(row => {
+      const tr = document.createElement("tr");
+      ["Leave_Type", "Leaves_Taken", "Leave_Pending", "Remarks"].forEach(k => {
+        const td = document.createElement("td");
+        td.textContent = row[k] || "";
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    container.innerHTML = `<h3>Leaves for ${employeeName}</h3>`;
+    container.appendChild(table);
+  } catch (e) {
+    console.error("Leave load error:", e);
+    container.innerHTML = `<p>Error loading leave data.</p>`;
+  }
+}
+
+    function switchTab(tab, contentMap) {
+      Object.keys(contentMap).forEach(t => {
+        contentMap[t].classList.toggle("active", t === tab);
       });
       document.querySelectorAll(".tab-button").forEach(btn => {
         btn.classList.toggle("active", btn.innerText === tab);
       });
     }
 
-    document.addEventListener("DOMContentLoaded", loadTeamData);
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTeamData();
+    });
   </script>
 </body>
 </html>
