@@ -205,6 +205,118 @@ def anand_certifications():
     conn.close()
     return jsonify(results)
 
+@app.route('/api/sops/sachin')
+def sachin_sops():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT s.Engineer, s.Trainee, s.Sr_Engineer, s.SOP_Document, s.Status, s.KT_Session_To_Team
+        FROM sops_documents s
+        INNER JOIN Employee_Details e ON LOWER(s.Engineer) = LOWER(e.Name) OR LOWER(s.Trainee) = LOWER(e.Name)
+        WHERE LOWER(e.Team) = ?
+    """, ('sachin team',))
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
+
+@app.route('/api/sops/naveen')
+def naveen_sops():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT s.Engineer, s.Trainee, s.Sr_Engineer, s.SOP_Document, s.Status, s.KT_Session_To_Team
+        FROM sops_documents s
+        INNER JOIN Employee_Details e ON LOWER(s.Engineer) = LOWER(e.Name) OR LOWER(s.Trainee) = LOWER(e.Name)
+        WHERE LOWER(e.Team) = ?
+    """, ('naveen team',))
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
+@app.route('/api/sops/anand')
+def anand_sops():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT s.Engineer, s.Trainee, s.Sr_Engineer, s.SOP_Document, s.Status, s.KT_Session_To_Team
+        FROM sops_documents s
+        INNER JOIN Employee_Details e ON LOWER(s.Engineer) = LOWER(e.Name) OR LOWER(s.Trainee) = LOWER(e.Name)
+        WHERE LOWER(e.Team) = ?
+    """, ('anand team',))
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
+
+@app.route('/api/leaves/sachin')
+def sachin_leaves():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT e.Name, l.Leave_Type, l.Leaves_Taken, l.Leave_Pending, l.Remarks
+        FROM Employee_Leave_Details l
+        INNER JOIN Employee_Details e ON LOWER(e.Name) = LOWER(l.Name)
+        WHERE LOWER(e.Team) = 'sachin team'
+    """)
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
+
+@app.route('/api/leaves/naveen')
+def naveen_leaves():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT e.Name, l.Leave_Type, l.Leaves_Taken, l.Leave_Pending, l.Remarks
+        FROM Employee_Leave_Details l
+        INNER JOIN Employee_Details e ON LOWER(e.Name) = LOWER(l.Name)
+        WHERE LOWER(e.Team) = 'naveen team'
+    """)
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
+
+@app.route('/api/leaves/anand')
+def anand_leaves():
+    if not session.get('logged_in'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT e.Name, l.Leave_Type, l.Leaves_Taken, l.Leave_Pending, l.Remarks
+        FROM Employee_Leave_Details l
+        INNER JOIN Employee_Details e ON LOWER(e.Name) = LOWER(l.Name)
+        WHERE LOWER(e.Team) = 'anand team'
+    """)
+    columns = [column[0] for column in cursor.description]
+    results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return jsonify(results)
 
 # ?? Homepage
 @app.route('/')
